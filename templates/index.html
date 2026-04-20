@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PathFinder </title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<header>
+    <p class="top">DISCRETE MATHEMATICS • GRAPH THEORY</p>
+    <h1>🚀 PathFinder</h1>
+    <p class="sub">Dijkstra's Shortest Path Algorithm — Interactive Visualizer</p>
+</header>
+
+<div class="main">
+
+    <!-- LEFT PANEL -->
+    <div class="left">
+
+        <!-- ADD NODES -->
+        <div class="card">
+            <h2>① ADD NODES</h2>
+
+            <input type="text" id="node" placeholder="e.g. Mumbai">
+
+            <button onclick="addNode()">Add Node</button>
+
+            <div id="nodes" class="listbox"></div>
+        </div>
+
+        <!-- ADD EDGES -->
+        <div class="card">
+            <h2>② ADD EDGES & WEIGHTS</h2>
+
+            <select id="from"></select>
+
+            <select id="to"></select>
+
+            <input type="number" id="weight" placeholder="Enter Weight">
+
+            <button onclick="addEdge()">Add Edge</button>
+
+            <div id="edges" class="listbox"></div>
+        </div>
+
+        <!-- RUN ALGORITHM -->
+        <div class="card">
+            <h2>③ FIND SHORTEST PATH</h2>
+
+            <select id="start"></select>
+
+            <select id="end"></select>
+
+            <button onclick="runAlgo()">Run Dijkstra</button>
+
+            <!-- NEW RESET BUTTON -->
+            <button onclick="resetAll()" style="margin-top:10px;background:#ff4d4d;color:white;">
+                Reset All
+            </button>
+
+            <div class="result">
+                <h3 id="distance"></h3>
+                <h3 id="path"></h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right">
+
+        <div class="graphhead">
+            GRAPH VISUALIZATION
+        </div>
+
+        <canvas id="graphCanvas"></canvas>
+
+    </div>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
