@@ -2,7 +2,6 @@ let nodes = []
 let edges = []
 
 function refresh() {
-
 let ids = ["from", "to", "start", "end"]
 
 ids.forEach(id => {
@@ -23,7 +22,6 @@ drawGraph()
 }
 
 function addNode() {
-
 let node = document.getElementById("node").value.trim().toUpperCase()
 
 if (node && !nodes.includes(node)) {
@@ -35,15 +33,12 @@ document.getElementById("node").value = ""
 }
 
 function deleteNode(name) {
-
 nodes = nodes.filter(n => n !== name)
 edges = edges.filter(e => e.from !== name && e.to !== name)
-
 refresh()
 }
 
 function renderNodes() {
-
 let box = document.getElementById("nodes")
 
 box.innerHTML = nodes.map(n =>
@@ -54,13 +49,11 @@ box.innerHTML = nodes.map(n =>
 }
 
 function addEdge() {
-
 let from = document.getElementById("from").value
 let to = document.getElementById("to").value
 let weight = document.getElementById("weight").value
 
 if (from && to && weight) {
-
 edges.push({
 from: from,
 to: to,
@@ -73,13 +66,11 @@ document.getElementById("weight").value = ""
 }
 
 function deleteEdge(index) {
-
 edges.splice(index, 1)
 refresh()
 }
 
 function renderEdges() {
-
 let box = document.getElementById("edges")
 
 box.innerHTML = edges.map((e, i) =>
@@ -91,7 +82,6 @@ ${e.from} → ${e.to} (${e.weight})
 }
 
 function runAlgo() {
-
 fetch('/run', {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
@@ -172,6 +162,7 @@ ctx.lineTo(b.x, b.y)
 ctx.strokeStyle = "yellow"
 ctx.lineWidth = 5
 ctx.stroke()
+
 }
 
 nodes.forEach(n => {
@@ -179,17 +170,24 @@ nodes.forEach(n => {
 let x = pos[n].x
 let y = pos[n].y
 
+let text = n
+
+let dynamicRadius = 28 + (text.length * 2)
+
+if (dynamicRadius > 55) {
+dynamicRadius = 55
+}
+
 ctx.beginPath()
-ctx.arc(x, y, 35, 0, 2 * Math.PI)
+ctx.arc(x, y, dynamicRadius, 0, 2 * Math.PI)
 ctx.fillStyle = "#00ffd0"
 ctx.fill()
 
-let text = n
 let size = 16
 
-if (text.length > 8) size = 12
-if (text.length > 12) size = 10
-if (text.length > 16) size = 8
+if (text.length > 10) size = 14
+if (text.length > 14) size = 12
+if (text.length > 18) size = 10
 
 ctx.fillStyle = "black"
 ctx.font = "bold " + size + "px Arial"
