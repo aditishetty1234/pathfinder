@@ -134,11 +134,94 @@ let centerY=c.height/2
 let radius=250
 
 nodes.forEach((n,i)=>{
+
 let angle=(2*Math.PI*i)/nodes.length
+
 pos[n]={
 x:centerX+radius*Math.cos(angle),
 y:centerY+radius*Math.sin(angle)
 }
+
+})
+
+/* DRAW EDGES */
+
+edges.forEach(e=>{
+
+let a=pos[e.from]
+let b=pos[e.to]
+
+ctx.beginPath()
+ctx.moveTo(a.x,a.y)
+ctx.lineTo(b.x,b.y)
+ctx.strokeStyle="#1f4f7d"
+ctx.lineWidth=2
+ctx.stroke()
+
+ctx.fillStyle="#8ab6ff"
+ctx.font="18px Arial"
+ctx.textAlign="center"
+ctx.fillText(e.weight,(a.x+b.x)/2,(a.y+b.y)/2)
+
+})
+
+/* HIGHLIGHT SHORTEST PATH */
+
+for(let i=0;i<path.length-1;i++){
+
+let a=pos[path[i]]
+let b=pos[path[i+1]]
+
+ctx.beginPath()
+ctx.moveTo(a.x,a.y)
+ctx.lineTo(b.x,b.y)
+ctx.strokeStyle="yellow"
+ctx.lineWidth=5
+ctx.stroke()
+
+}
+
+/* DRAW NODES WITH FIT TEXT */
+
+nodes.forEach(n=>{
+
+let x=pos[n].x
+let y=pos[n].y
+
+/* BIGGER NODE CIRCLE */
+
+ctx.beginPath()
+ctx.arc(x,y,35,0,2*Math.PI)
+ctx.fillStyle="#00ffd0"
+ctx.fill()
+
+/* AUTO TEXT SIZE */
+
+let text=n
+let size=16
+
+if(text.length>8){
+size=12
+}
+
+if(text.length>12){
+size=10
+}
+
+if(text.length>16){
+size=8
+}
+
+/* CENTER TEXT */
+
+ctx.fillStyle="black"
+ctx.font="bold "+size+"px Arial"
+ctx.textAlign="center"
+ctx.textBaseline="middle"
+ctx.fillText(text,x,y)
+
+})
+
 })
 
 edges.forEach(e=>{
